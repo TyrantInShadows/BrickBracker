@@ -19,11 +19,11 @@ import javax.swing.Timer;
 
 public class igrA extends JPanel implements KeyListener,ActionListener{
 	private boolean game=false;
-	public double n=1;
+	public double n=2;
 	private int score=0;
 	public static int TotalBricks=21;
 	private Timer time;
-	private int zakasnjenje=10;
+	private int zakasnjenje=50;
 	private int PlayerX=310;
 	private int BallX=420;
 	private int BallY=310;
@@ -121,7 +121,7 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_D)
 		{
-			if(PlayerX>=590)
+			if(PlayerX>=690-DuzPalice)
 				PlayerX=590;
 			else
 				MoveRight();
@@ -144,12 +144,12 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 	public void MoveRight()
 	{
 		game=true;
-		PlayerX+=30;
+		PlayerX+=20;
 	}
 	public void MoveLeft()
 	{
 		game=true;
-		PlayerX-=30;
+		PlayerX-=20;
 	}
 	
 	public void intersect()
@@ -193,11 +193,11 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 		PlayerY-=50;
 		BallX=420;
 		BallY=310;
-		BallXdir=1;
-		BallYdir=-2;
+		BallXdir=1*n;
+		BallYdir=-2*n;
 		Ballsize=20;
 		DuzPalice=100;
-		n=1;
+		n=2;
 		smanjenje=2;
 		ubrzanje=0;
 	}
@@ -227,83 +227,61 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 					{
 						if(i==0&&j==0)
 						{
-							int z=i+1;
-							int b=j+1;
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j+1);
 						}
 						else if(i==(dora.map.length-1)&&j==0)
 						{
-							int z=i-1;
-							int b=j+1;
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i, j+1);
 						}
 						else if(i==(dora.map.length-1)&&j==(dora.map[i].length-1) )
 						{
-							int z=i-1;
-							int b=j-1;
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i, j-1);
 						}
 						else if(i==0&&j==(dora.map[i].length-1))
 						{
-							int z=i+1;
-							int b=j-1;
-							dora.setBrickValue(0, i, b);
-							dora.setBrickValue(0, z, j);
+							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i+1, j);
 						}
 						else if(i==0)
 						{
-							int z=i+1;
-							int b=j+1;
-							int a=j-1;
-							dora.setBrickValue(0, i, a);
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j+1);
 						}
 						else if(j==0)
 						{
-							int z=i-1;
-							int b=i+1;
-							int a=j+1;
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, b, j);
-							dora.setBrickValue(0, i, a);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j+1);
 						}	
 						else if(i==(dora.map.length-1))
 						{
-							int z=i-1;
-							int b=j+1;
-							int a=j-1;
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, a);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i, j+1);
 						}
 						else if(j==(dora.map[i].length-1))
 						{
-							int z=i+1;
-							int b=i-1;
-							int a=j-1;
-							dora.setBrickValue(0, b, j);
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, a);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j-1);
 						}
 						else 
 						{
-							int z=i+1;
-							int b=j+1;
-							int a=j-1;
-							int x=i-1;
-							dora.setBrickValue(0, x, j);
-							dora.setBrickValue(0, z, j);
-							dora.setBrickValue(0, i, a);
-							dora.setBrickValue(0, i, b);
+							dora.setBrickValue(0, i-1, j);
+							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i, j+1);
 						}
 					}
 					else if(dora.map[i][j]>70&&dora.map[i][j]<=80)
 					{
 						Ballsize+=10;
+						BallX+=10;
+						BallY+=10;
 					}
 					else if(dora.map[i][j]>80&&dora.map[i][j]<=90)
 					{
