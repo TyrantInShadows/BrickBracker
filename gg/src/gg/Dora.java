@@ -79,6 +79,7 @@ public class Dora {
 		{
 			map[row][col]=value;
 			igrA.TotalBricks--;
+			igrA.score+=5;
 		}
 	}
 	
