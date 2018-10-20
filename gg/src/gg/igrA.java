@@ -310,5 +310,53 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 	
 	}
 	}
+		public void UpisT(int s)
+	{
+		try
+		{
+			int []niz=new int[11];
+			int i=1;
+			FileReader fr=new FileReader("HighScores.txt");
+			BufferedReader br=new BufferedReader(fr);
+			niz[0]=s;
+			String a=br.readLine();
+			while(a!=null && i<11)
+			{
+				niz[i]=Integer.parseInt(a);
+				i++;
+				a=br.readLine();
+			}
+			br.close();
+			for(int j=0;j<i-1;j++)
+			{
+				for(int k=j+1;k<i;k++)
+				{
+					if(niz[j]<niz[k])
+					{
+						int p=niz[j];
+						niz[j]=niz[k];
+						niz[k]=p;
+					}
+				}
+				
+			}
+			if(i>10)
+			{
+				i=10;
+			}
+		FileWriter fw=new FileWriter("HighScores.txt");
+		BufferedWriter bw=new BufferedWriter(fw);
+		for(int x=0;x<i;x++)
+		{
+			bw.write(Integer.toString(niz[x]));
+			bw.newLine();
+		}
+		bw.close();
+	}
+		catch(IOException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
 	
 }
