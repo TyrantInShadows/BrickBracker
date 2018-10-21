@@ -1,12 +1,21 @@
 package gg;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.swing.event.*;
+import javax.swing.*;
+
 public class Main {
 
 	public static void main(String[] args) {
 		JFrame JF=new JFrame();
 		igrA igra=new igrA();
-		JF.setBounds(100, 100, 700, 600);
+		JF.setBounds(100, 100, 700, 610);
 		JF.setTitle("BrickBracker");
 		JF.setResizable(false);
 		JF.setVisible(true);
@@ -58,9 +67,11 @@ public class Main {
 							Sc.add(L1);
 							L1.setLocation(50,50*(i+1));
 						}
+					
 				}
 		}
-					);
+		);
+		
 	}
 	public static int[] NizTop() throws IOException
 	{

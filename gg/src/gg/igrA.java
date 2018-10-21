@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.io.*;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -20,7 +21,7 @@ import javax.swing.Timer;
 public class igrA extends JPanel implements KeyListener,ActionListener{
 	private boolean game=false;
 	public double n=2;
-	private int score=0;
+	public static int score=0;
 	public static int TotalBricks=21;
 	private Timer time;
 	private int zakasnjenje=50;
@@ -78,6 +79,7 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 			 g.drawString("GAME OVER", 225, 275);
 			 g.setFont(new Font("calibri",Font.PLAIN,20));
 			 g.drawString("Score: "+score, 325, 295);
+			 UpisT(score);
 			 time.stop();
 		 }
 		 else if(BallY>PlayerY+20)
@@ -93,7 +95,6 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 		 g.dispose();
 	
 	 }
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		time.start();
@@ -122,7 +123,7 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 		if(e.getKeyCode()==KeyEvent.VK_D)
 		{
 			if(PlayerX>=690-DuzPalice)
-				PlayerX=590;
+				PlayerX=690-DuzPalice;
 			else
 				MoveRight();
 		}
@@ -134,13 +135,10 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 				MoveLeft();
 		}
 	}
-
 	@Override
 	public void keyReleased(KeyEvent arg0) {}
-
 	@Override
-	public void keyTyped(KeyEvent arg0) {}
-	
+	public void keyTyped(KeyEvent arg0) {}	
 	public void MoveRight()
 	{
 		game=true;
@@ -150,8 +148,7 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 	{
 		game=true;
 		PlayerX-=20;
-	}
-	
+	}	
 	public void intersect()
 	{
 		if(BallXdir>0)
@@ -227,54 +224,54 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 					{
 						if(i==0&&j==0)
 						{
-							dora.setBrickValue(0, i+1, j);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i++, j);
+							dora.setBrickValue(0, i, j++);
 						}
-						else if(i==(dora.map.length-1)&&j==0)
+						else if(i==dora.map.length-1&&j==0)
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i, j++);
 						}
-						else if(i==(dora.map.length-1)&&j==(dora.map[i].length-1) )
+						else if(i==dora.map.length-1&&j==dora.map[i].length-1)
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i, j--);
 						}
-						else if(i==0&&j==(dora.map[i].length-1))
+						else if(i==0&&j==dora.map[i].length-1)
 						{
-							dora.setBrickValue(0, i, j-1);
-							dora.setBrickValue(0, i+1, j);
+							dora.setBrickValue(0, i, j--);
+							dora.setBrickValue(0, i++, j);
 						}
 						else if(i==0)
 						{
-							dora.setBrickValue(0, i, j-1);
-							dora.setBrickValue(0, i+1, j);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i, j--);
+							dora.setBrickValue(0, i++, j);
+							dora.setBrickValue(0, i, j++);
 						}
 						else if(j==0)
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i+1, j);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i++, j);
+							dora.setBrickValue(0, i, j++);
 						}	
-						else if(i==(dora.map.length-1))
+						else if(i==dora.map.length-1)
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i, j-1);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i, j--);
+							dora.setBrickValue(0, i, j++);
 						}
-						else if(j==(dora.map[i].length-1))
+						else if(j==dora.map[i].length-1)
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i+1, j);
-							dora.setBrickValue(0, i, j-1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i, j++);
+							dora.setBrickValue(0, i, j--);
 						}
 						else 
 						{
-							dora.setBrickValue(0, i-1, j);
-							dora.setBrickValue(0, i+1, j);
-							dora.setBrickValue(0, i, j-1);
-							dora.setBrickValue(0, i, j+1);
+							dora.setBrickValue(0, i--, j);
+							dora.setBrickValue(0, i++, j);
+							dora.setBrickValue(0, i, j--);
+							dora.setBrickValue(0, i, j++);
 						}
 					}
 					else if(dora.map[i][j]>70&&dora.map[i][j]<=80)
@@ -286,8 +283,10 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 					else if(dora.map[i][j]>80&&dora.map[i][j]<=90)
 					{
 						if(smanjenje!=0)
-						{DuzPalice/=2;
-						smanjenje--;}
+						{
+							DuzPalice/=2;
+							smanjenje--;
+						}
 					}
 					if(dora.map[i][j]>90&&dora.map[i][j]<=100)
 					{
@@ -295,7 +294,6 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 					}
 					if(dora.map[i][j]!=1)
 					dora.setBrickValue(0, i, j);
-					score+=5;
 					if(BallX+19<=rect.x || BallX+1>=rect.x+dora.BrickW)
 					{
 						BallXdir=-BallXdir;
@@ -310,7 +308,7 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 	
 	}
 	}
-		public void UpisT(int s)
+	public void UpisT(int s)
 	{
 		try
 		{
@@ -358,5 +356,4 @@ public class igrA extends JPanel implements KeyListener,ActionListener{
 			System.out.println(e.getMessage());
 		}
 	}
-	
 }
